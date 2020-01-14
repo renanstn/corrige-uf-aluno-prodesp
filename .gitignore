@@ -1,0 +1,5 @@
+.venv
+.vscode
+*.ini
+*.bkp
+*.log
