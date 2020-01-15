@@ -82,7 +82,7 @@ def get_uf_cods(conn):
 def update_uf_aluno(conn, ambiente_params, aluno_cod, uf_cod):
     '''Atualiza a tabela edu_aluno o UF cod do aluno, caso a variável salva_no_banco do config.ini seja 1'''
     logging.info('Atualizando aluno_cod {} para uf_cod {}'.format(aluno_cod, uf_cod))
-    if ambiente_params['salva_no_banco'] == 1:
+    if ambiente_params['salva_no_banco'] == '1':
         sql = 'UPDATE edu_aluno SET aluno_ra_estcod = %s WHERE aluno_cod = %s'
         cursor = conn.cursor()
         cursor.execute(sql, (uf_cod, aluno_cod))
@@ -165,17 +165,18 @@ def main():
 
     config = get_config()
     params = config._sections
-    conn = db_connect(params['db'])
 
-    if params['ambiente']['salva_no_banco'] == 1:
+    if params['ambiente']['salva_no_banco'] == '1':
         print('- Parâmetro de alteração de banco ATIVO')
     else:
         print('- Parâmetro de alteração de banco INATIVO')
 
+    conn = db_connect(params['db'])
     estados = get_uf_cods(conn)
     print('- Códigos de estados carregados')
 
     alunos_sem_uf = get_alunos_sem_uf(conn)
+    conn.close()
     total_alunos_sem_uf = len(alunos_sem_uf)
     print('- Encontrados {} alunos sem UF'.format(total_alunos_sem_uf))
     logging.info('- Encontrados {} alunos sem UF'.format(total_alunos_sem_uf))
@@ -212,7 +213,9 @@ def main():
             print('- UF do aluno: {}'.format(uf))
             logging.info('UF: {}'.format(uf))
             uf_cod = estados[uf]
+            conn = db_connect(params['db'])
             update_uf_aluno(conn, params['ambiente'], aluno['aluno_cod'], uf_cod)
+            conn.close()
 
         else:
             report_aluno_erro(dados_prodesp, aluno)
@@ -220,8 +223,6 @@ def main():
             print('- Para mais informações, consulte o log')
 
         contador += 1
-
-    conn.close()
 
 
 if __name__ == "__main__":
