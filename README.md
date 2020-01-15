@@ -18,6 +18,8 @@ Para executar este script siga os seguintes passos:
   - `python3 -m venv .venv`
 - Ative o ambiente virtual que você acabou de criar:
   - `source .venv/bin/activate`
+- Instale as dependências do script:
+  - `pip install -r requirements.txt`
 - Crie um arquivo `config.ini` com as seguintes informações:
   - [db]
     - server = [endereço do host]
