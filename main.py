@@ -176,13 +176,19 @@ def main():
     print('- Códigos de estados carregados')
 
     alunos_sem_uf = get_alunos_sem_uf(conn)
-    print('- Encontrados {} alunos sem UF'.format(len(alunos_sem_uf)))
-    logging.info('- Encontrados {} alunos sem UF'.format(len(alunos_sem_uf)))
+    total_alunos_sem_uf = len(alunos_sem_uf)
+    print('- Encontrados {} alunos sem UF'.format(total_alunos_sem_uf))
+    logging.info('- Encontrados {} alunos sem UF'.format(total_alunos_sem_uf))
 
     token = params['api']['token']
 
     print('- Iniciando buscas fonéticas dos alunos...')
+    contador = 1
     for aluno in alunos_sem_uf:
+        print('- -------------------- {} de {} --------------------'.format(
+            contador,
+            total_alunos_sem_uf
+        ))
         logging.info('Buscando aluno {}'.format(aluno['nome']))
         print('- Buscando dados:\n\tAluno: {}\n\tMãe: {}\n\tNascimento: {}'.format(
             aluno['nome'],
@@ -212,6 +218,8 @@ def main():
             report_aluno_erro(dados_prodesp, aluno)
             print('- Houve um problema com o aluno {}'.format(aluno['nome']))
             print('- Para mais informações, consulte o log')
+
+        contador += 1
 
     conn.close()
 
