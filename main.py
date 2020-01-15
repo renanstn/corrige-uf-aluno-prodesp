@@ -173,6 +173,7 @@ def main():
 
     alunos_sem_uf = get_alunos_sem_uf(conn)
     print('- Encontrados {} alunos sem UF'.format(len(alunos_sem_uf)))
+    logging.info('- Encontrados {} alunos sem UF'.format(len(alunos_sem_uf)))
 
     token = params['api']['token']
 
@@ -201,7 +202,7 @@ def main():
             print('- UF do aluno: {}'.format(uf))
             logging.info('UF: {}'.format(uf))
             uf_cod = estados[uf]
-            update_uf_aluno(conn, aluno['aluno_cod'], uf_cod)
+            update_uf_aluno(conn, params['ambiente'], aluno['aluno_cod'], uf_cod)
 
         else:
             report_aluno_erro(dados_prodesp, aluno)
