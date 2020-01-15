@@ -11,7 +11,11 @@ from unicodedata import normalize
 def init_logger():
     '''Inicializa o logger do projeto'''
     log_file = 'logs.log'
-    logging.basicConfig(filename=log_file, level=logging.INFO)
+    logging.basicConfig(
+        filename=log_file,
+        level=logging.INFO,
+        format='%(asctime)s %(name)-8s %(levelname)-8s %(message)s'
+    )
 
 
 def get_config():
