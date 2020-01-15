@@ -57,8 +57,14 @@ def get_alunos_sem_uf(conn):
     return cursor.fetchall()
 
 
-def save_uf_aluno(conn, aluno):
+def get_uf_cods():
     pass
+
+
+def save_uf_aluno(conn, aluno_cod, uf_cod):
+    cursor = conn.cursor()
+    cursor.execute('INSERT INTO edu_aluno (aluno_ra_estcod) VALUES (%s) WHERE aluno_cod = %s', (uf_cod, aluno_cod))
+    conn.commit()
 
 
 def busca_fonetica_aluno(api_params, token, aluno):
@@ -135,6 +141,7 @@ def main():
     print('- Encontrados {} alunos sem UF'.format(len(alunos_sem_uf)))
 
     token = params['api']['token']
+    # Buscar os UF cods e armazenar num dicionário
 
     print('- Iniciando buscas fonéticas dos alunos...')
     for aluno in alunos_sem_uf:
