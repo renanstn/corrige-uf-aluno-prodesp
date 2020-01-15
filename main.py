@@ -117,6 +117,8 @@ def report_aluno_erro(data, aluno):
             data['outErro']
         )
         logging.error(error)
+    else:
+        logging.error('Erro desconhecido')
 
 
 def remover_acentos(txt):
