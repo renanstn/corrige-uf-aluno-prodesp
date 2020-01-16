@@ -31,7 +31,7 @@ Para executar este script siga os seguintes passos:
     - prodesp_url_auth = [endpoint que solicita o token]
     - prodesp_url_listar_alunos = [endpoint do método listar aluno]
     - prodesp_usuario_rest = [usuario da API]
-    - prodesp_senha_rest = []senha da API
+    - prodesp_senha_rest = [senha da API]
   - [ambiente]
     - salva_no_banco = [flag que ativa ou não a alteração no banco (1 - altera | 0 - não altera)]
 - Execute o script:
