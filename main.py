@@ -185,7 +185,11 @@ def main():
 
     print('- Iniciando buscas fonéticas dos alunos...')
     contador = 1
+    
     for aluno in alunos_sem_uf:
+        if not aluno['nome'] or not aluno['nome_mae'] or not aluno['nascimento']:
+            continue
+
         print('- -------------------- {} de {} --------------------'.format(
             contador,
             total_alunos_sem_uf
